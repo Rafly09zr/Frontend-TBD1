@@ -11,7 +11,7 @@ const SqlBuilder = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/query", {
+      const response = await fetch("https://backend-tbd-1.vercel.app/query", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: inputQuery })

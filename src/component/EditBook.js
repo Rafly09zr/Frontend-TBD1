@@ -25,7 +25,7 @@ const EditBook = ({ book }) => {
         Publication_year,
         Book_pages
       };
-      const response = await fetch(`http://localhost:3000/books/${book.Book_id}`, {
+      const response = await fetch(`https://backend-tbd-1.vercel.app/books/${book.Book_id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)

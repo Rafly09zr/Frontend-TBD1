@@ -35,7 +35,7 @@ const InputBook = () => {
         Publication_year,
         Book_pages
       };
-      const response = await fetch("http://localhost:3000/books", {
+      const response = await fetch("https://backend-tbd-1.vercel.app/books", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)

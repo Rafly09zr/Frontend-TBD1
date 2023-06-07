@@ -9,7 +9,7 @@ const ListBook = () => {
   // Delete book function
   const deleteBook = async (id) => {
     try {
-      const deleteBook = await fetch(`http://localhost:3000/books/${id}`, {
+      const deleteBook = await fetch(`https://backend-tbd-1.vercel.app/books/${id}`, {
         method: "DELETE"
       });
 
@@ -21,7 +21,7 @@ const ListBook = () => {
 
   const getBooks = async () => {
     try {
-      const response = await fetch("http://localhost:3000/books?_sort=Book_id&_order=asc");
+      const response = await fetch("https://backend-tbd-1.vercel.app/books?_sort=Book_id&_order=asc");
       const jsonData = await response.json();
   
       setBooks(jsonData);
