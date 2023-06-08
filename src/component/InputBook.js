@@ -139,6 +139,7 @@ const InputBook = () => {
             <button
               className="btn btn-success btn-lg"
               style={{ width: "400px" }}
+              type="submit"
             >
               Add new book
             </button>
