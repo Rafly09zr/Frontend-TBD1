@@ -1,5 +1,4 @@
-// InputBook.js
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 
 const InputBook = () => {
   const [bookData, setBookData] = useState({
@@ -19,6 +18,22 @@ const InputBook = () => {
     Publication_year,
     Book_pages
   } = bookData;
+
+  // Fetch the max Book_id value from the backend on component mount
+  useEffect(() => {
+    fetchMaxBookId();
+  }, []);
+
+  const fetchMaxBookId = async () => {
+    try {
+      const response = await fetch("https://backend-tbd-1.vercel.app/books");
+      const data = await response.json();
+      const maxId = data.length > 0 ? Math.max(...data.map((book) => book.Book_id)) : 0;
+      setBookData({ ...bookData, Book_id: maxId + 1 });
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   const onChange = (e) => {
     setBookData({ ...bookData, [e.target.name]: e.target.value });
@@ -40,9 +55,12 @@ const InputBook = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
       });
-      console.log(body);
-      // Handle the response as needed
-      window.location = "/";
+      if (response.ok) {
+        console.log("Book data submitted successfully!");
+        window.location = "/";
+      } else {
+        console.log("Failed to submit book data.");
+      }
     } catch (err) {
       console.error(err.message);
     }
@@ -64,6 +82,7 @@ const InputBook = () => {
                   className="form-control"
                   value={Book_id}
                   onChange={onChange}
+                  disabled // Disable the input field
                   required
                 />
               </div>
@@ -131,24 +150,15 @@ const InputBook = () => {
                   required
                 />
               </div>
+              <button type="submit" className="btn btn-primary">
+                Add new book
+              </button>
             </form>
-          </div>
-        </div>
-        <div className="row mt-3">
-          <div className="col text-center">
-            <button
-              className="btn btn-success btn-lg"
-              style={{ width: "400px" }}
-              type="submit"
-            >
-              Add new book
-            </button>
           </div>
         </div>
       </div>
     </Fragment>
   );
-  
 };
 
 export default InputBook;
